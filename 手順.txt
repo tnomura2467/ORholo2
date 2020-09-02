@@ -1,0 +1,8 @@
+ros-sharp-support-for-uwp ダウンロード、展開
+NuGetForUnity2.0.0インポート
+UnityEditor上のNuget欄のManageNugetPackageからSerchでMixedRealityと検索
+MixedRealityToolKit Foundationをインポート(長め)
+File,BuildSetting,UWPのPlayerSettingクリック
+InspctorのXRSettingのVirtualRealitySupportedとVuforiaARSupportにチェック
+自分のVuforiaのDataBaseダウンロード、インポート
+
