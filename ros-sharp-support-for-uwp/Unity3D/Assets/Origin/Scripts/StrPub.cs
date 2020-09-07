@@ -17,14 +17,14 @@ public class StrPub : MonoBehaviour
     public string moji;
 
     public GameObject sphere;
-    TapFreeFall taptrigger;
+    TapTrigger taptrigger;
     private bool tapk = false;
 
     void Start()
     {
 
-        sphere = GameObject.Find("TapSphere");
-        taptrigger = sphere.GetComponent<TapFreeFall>();
+        sphere = GameObject.Find("UpdateBoard");
+        taptrigger = sphere.GetComponent<TapTrigger>();
 
         rosSocket = GetComponent<RosConnector>().RosSocket;
         advertise_id = rosSocket.Advertise("/chatter", "std_msgs/String");

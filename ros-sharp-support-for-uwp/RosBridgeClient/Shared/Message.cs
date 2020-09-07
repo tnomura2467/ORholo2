@@ -372,4 +372,38 @@ namespace RosSharp.RosBridgeClient
     {
         public byte[] value;
     }
+
+    public class DBinfo : Message
+    {
+        public int[] FrameB;
+        public int[] FrameT;
+        public int[] TimeB;
+        public int[] TimeT;
+        public int[] id;
+        public int[] Xmin;
+        public int[] Ymin;
+        public int[] Width;
+        public int[] Height;
+        public int[] Depth;
+        public int[] Yobi;
+        public int[] YobiYobi;
+        public int cnt;
+        public DBinfo()
+        {
+            FrameB = new int[0];
+            FrameT = new int[0];
+            TimeT = new int[0];
+            TimeB = new int[0];
+            id = new int[0];
+            Xmin = new int[0];
+            Ymin = new int[0];
+            Width = new int[0];
+            Height = new int[0];
+            Depth = new int[0];
+            Yobi = new int[0];
+            YobiYobi = new int[0];
+            cnt = 0;
+        }
+
+    }
 }

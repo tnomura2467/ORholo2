@@ -46,7 +46,8 @@ namespace RosSharp.RosBridgeClient
             { "nav_msgs/OccupancyGrid", typeof(NavigationOccupancyGrid)},
             { "geometry_msgs/Transform", typeof(GeometryTransform)},
             { "geometry_msgs/TransformStamped", typeof(GeometryTransformStamped)},
-            { "tf2_msgs/TFMessage", typeof(TF2TFMessage)}
+            { "tf2_msgs/TFMessage", typeof(TF2TFMessage)},
+            { "detect_object/DBinfo", typeof(DBinfo)}
         };
         public static string RosMessageType(Type messageType)
         {
