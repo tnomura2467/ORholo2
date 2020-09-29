@@ -7,27 +7,30 @@ public class DBsubscriber : MonoBehaviour
 {
     private RosSocket rosSocket;
     public int UpdateTime = 0;
-    public int[] FrameB;
-    public int[] FrameT;
-    public int[] TimeB;
-    public int[] TimeT;
-    public int[] id;
-    public int[] Xmin;
+    //受け取ったトピックを格納する配列
+    //[0]は初めに持ち込まれた物体の情報,[1]は次に持ち込まれた物体の情報,[2]はその次に...
+    public int[] FrameB;  //モニタリングシステムが稼働してから物体が持ち込まれるまでのFrame数(使ってない)
+    public int[] FrameT;  //MSが稼働してから物体が持ち去られるまでのFrame数(使ってない)
+    public int[] TimeB;  //物体が持ち込まれた時刻
+    public int[] TimeT;  //物体が持ち去られた時刻(持ち去られていない場合は0が返ってくる)
+    public int[] id;  //持ち込まれた順に付与される番号(使ってない)
+    public int[] Xmin;  //以下その物体の（画像の）座標とサイズ
     public int[] Ymin;
     public int[] Width;
     public int[] Height;
     public int[] Depth;
-    public int[] Yobi;
+    public int[] Yobi; //トピックの内容(メッセージ)を書き換えるのは手間がかかるので緊急時の為の変数(何も格納されてない)
     public int[] YobiYobi;
-    public int cnt;
-    public int one;
 
-    public int MinTime;
-    public int MaxTime;
-    public int MinSec;
-    public int MaxSec;
-    public int[] BSec;
-    public int[] TSec;
+    public int cnt;  //物体の個数
+    //public int one;
+
+    public int MinTime;  //最初にイベントが起こった時刻
+    public int MaxTime;  //最後にイベントが起こった時刻
+    public int MinSec;   //MS稼働から最初にイベントが起こるまでの時間(秒)
+    public int MaxSec;   //MS稼働から最後にイベントが起こるまでの時間(秒)
+    public int[] BSec;   //MS稼働から物体が持ち込まれるまでの時間(秒)
+    public int[] TSec;   //MS稼働から物体が持ち去られるまでの時間(秒)
 
     public float nowtime;
     public struct NowTime
@@ -63,7 +66,7 @@ public class DBsubscriber : MonoBehaviour
     public GameObject[] Plane;
 
 
-    /*public GameObject textt;
+    public GameObject texttimeobject;
     TextMesh texttime;
 
 
@@ -71,11 +74,11 @@ public class DBsubscriber : MonoBehaviour
     public GameObject slider;
     public float Slidery;
 
-    MoveTime movetime;
+    MoveTimeBar movetime;
     public bool movecomp;
     public GameObject Timesphere;
 
-    TranceRP trp;
+    /*TranceRP trp;
     public bool trpbool;
     public GameObject trpObject;*/
 
@@ -86,7 +89,7 @@ public class DBsubscriber : MonoBehaviour
         BSec = new int[20];
         TSec = new int[20];
 
-        Plane = new GameObject[6];
+        Plane = new GameObject[6];  //物体の画像が貼られるPlane
         Plane[0] = Plane0;
         Plane[1] = Plane1;
         Plane[2] = Plane2;
@@ -94,12 +97,12 @@ public class DBsubscriber : MonoBehaviour
         Plane[4] = Plane4;
         Plane[5] = Plane5;
 
-        /*nowtime = 0;
-        texttime = textt.GetComponent<TextMesh>();
+        nowtime = 0;
+        texttime = texttimeobject.GetComponent<TextMesh>();
 
         Timesphere = GameObject.Find("TimeSphere");
-        movetime = Timesphere.GetComponent<MoveTime>();
-        trpObject = GameObject.Find("TimeSphere2");
+        movetime = Timesphere.GetComponent<MoveTimeBar>();
+        /*trpObject = GameObject.Find("TimeSphere2");
         trp = trpObject.GetComponent<TranceRP>();*/
 
 
@@ -110,6 +113,7 @@ public class DBsubscriber : MonoBehaviour
     {
         rosSocket = GetComponent<RosConnector>().RosSocket;
 
+        //Topicを受け取ったら関数NuｍResが呼び出される
         rosSocket.Subscribe("/shelfDB", "detect_object/DBinfo", NumRes, UpdateTime);
     }
 
@@ -130,16 +134,15 @@ public class DBsubscriber : MonoBehaviour
         YobiYobi = datas.YobiYobi;
         cnt = datas.cnt;
 
-        MaxTime = 0;
-        MinTime = 0;
-        
+        MaxTime = 0;  
+        MinTime = 0; 
 
-
-        num_check_topic = true;
+        num_check_topic = true; 
 
     }
 
-    // Update is called once per frame
+    //物体の持ち去り時間を０時０分０秒からの秒数に変換する
+    //02時10分05秒は021005という数字で送られてきて管理しづらいので
     public int ChangeTime(int time)
     {
         int ctime;
@@ -155,26 +158,28 @@ public class DBsubscriber : MonoBehaviour
         return ctime;
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
 
-
-        if (num_check_topic) //remote
+        //ORサーバからのtopicを受け取ったら
+        if (num_check_topic)
         {
             PlaneChange();
         }
-        /*
+        
         //MaxTime = 160605;
         //MinTime = 160439;
         //MaxTime = 0;
         //MinTime = 0;
 
+        //最初と最後のイベント時刻を秒数に変換。30+-はなくてもよい。見やすくするため
         MaxSec = ChangeTime(MaxTime) + 30;    //30秒+-
         MinSec = ChangeTime(MinTime) - 30;
 
-
+        //バー(赤色のTimeSphere)の位置を把握する
         Slidery = slider.transform.localPosition.y;
+        //バーはｙ座標が1から-1まで動く。わかりやすくするために1～-1を0～2に変換する
         Slidery = Slidery - 1;
         Slidery = Slidery * (-1);
         if (Slidery > 2)
@@ -186,29 +191,29 @@ public class DBsubscriber : MonoBehaviour
             Slidery = 0;
         }
 
+        //バーの位置が指し示す時刻をnowtimeに格納
         nowtime = MinSec + (MaxSec - MinSec) * (Slidery / 2);
-        Slidery = Slidery * (MaxSec - MinSec) / 2f;
+        Slidery = Slidery * (MaxSec - MinSec) / 2f;  //??
 
+        //TimeTextにバーの位置が指し示す時刻を表示する
         nt.hour = (int)nowtime / 3600;
         nt.min = ((int)nowtime % 3600) / 60;
         nt.sec = ((int)nowtime % 3600) % 60;
-
         texttime.text = "Time|| " + nt.hour.ToString() + ":" + nt.min.ToString() + ":" + nt.sec.ToString();
 
-
-        for (int i = 0; i < cnt; i++)
+        //バーの位置が指し示す時刻に存在しなかった物体(の画像を貼ったPlane)を非表示にする
+        for (int i = 0; i < cnt; i++) //i=0は一つ目の物体についての処理 i=1は二つ目の物体についての処理 i=2は三つ目の...
         {
+            BSec[i] = ChangeTime(TimeB[i]);  //bring時の時間
+            TSec[i] = ChangeTime(TimeT[i]);  //take時の時間
 
-            BSec[i] = ChangeTime(TimeB[i]);
-            TSec[i] = ChangeTime(TimeT[i]);
-
-
-
+            //takeされなかった物体のTsec(持ち去られた時刻)は0なのでMaxSecを格納
             if (TSec[i] == 0)
             {
                 TSec[i] = MaxSec;
             }
 
+            //持ち込まれた時刻より後に、バーの位置が指し示す時刻がある。&&持ち去られた時刻より前にバーの位置が指し示す時刻がある。場合に物体表示
             if ((BSec[i] - MinSec) <= Slidery && Slidery <= (TSec[i] - MinSec))
             {
                 Plane[i].SetActive(true);
@@ -217,14 +222,10 @@ public class DBsubscriber : MonoBehaviour
             {
                 Plane[i].SetActive(false);
             }
-
-
-
         }
 
-        if (trp.tapRP == true)
-        {
-            //Debug.Log("OK!!");
+        /*if (trp.tapRP == true)
+        //{
             if (movetime.movebar == true)
             {
                 for (int i = 0; i < cnt; i++)
@@ -234,20 +235,19 @@ public class DBsubscriber : MonoBehaviour
                 }
 
             }
-        }*/
+        //}*/
 
     }
 
     void PlaneChange()
     {
-        for (int i = 0; i < cnt; i++)
+        for (int i = 0; i < cnt; i++)  //i=0は一つ目の物体についての処理 i=1は二つ目の物体についての処理 i=2は三つ目の...
         {
-
-
+            //物体の情報をPleneに反映 書き直し必須
             Plane[i].transform.localScale = new Vector3(Width[i] * 0.001f, 0.1f, Height[i] * 0.001f);
             Plane[i].transform.localPosition = new Vector3((Xmin[i] * 0.01f) - 2.4f + (Width[i] * 0.005f), (Ymin[i] * 0.01f * -1) + 1.35f - (Height[i] * 0.005f), 10f + Depth[i] * 0.00001f);
 
-
+            //最後のイベント時刻を知る
             MinTime = TimeB[0]; //Beginning is bringed first objects 
             MaxTime = TimeB[i];
             if (MaxTime < TimeT[i])
