@@ -23,7 +23,7 @@ public class StrPub : MonoBehaviour
     void Start()
     {
 
-        sphere = GameObject.Find("UpdateBoard");
+        sphere = GameObject.Find("PressableButtonHoloLens2");
         taptrigger = sphere.GetComponent<TapTrigger>();
 
         rosSocket = GetComponent<RosConnector>().RosSocket;

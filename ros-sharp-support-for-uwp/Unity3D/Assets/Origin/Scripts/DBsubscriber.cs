@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RosSharp.RosBridgeClient;
+using Microsoft.MixedReality.Toolkit.UI;
+
 
 public class DBsubscriber : MonoBehaviour
 {
@@ -71,12 +73,14 @@ public class DBsubscriber : MonoBehaviour
 
 
 
-    public GameObject slider;
+    //public GameObject slider;
     public float Slidery;
+    public GameObject PinchSliders;
+    public float pinchslider;
 
     MoveTimeBar movetime;
     public bool movecomp;
-    public GameObject Timesphere;
+   // public GameObject Timesphere;
 
     /*TranceRP trp;
     public bool trpbool;
@@ -100,10 +104,11 @@ public class DBsubscriber : MonoBehaviour
         nowtime = 0;
         texttime = texttimeobject.GetComponent<TextMesh>();
 
-        Timesphere = GameObject.Find("TimeSphere");
-        movetime = Timesphere.GetComponent<MoveTimeBar>();
+       // Timesphere = GameObject.Find("TimeSphere");
+       // movetime = Timesphere.GetComponent<MoveTimeBar>();
         /*trpObject = GameObject.Find("TimeSphere2");
         trp = trpObject.GetComponent<TranceRP>();*/
+        //PinchSliders = GameObject.Find("PinchSlider");
 
 
         Invoke("Init", 1.0f);
@@ -178,7 +183,8 @@ public class DBsubscriber : MonoBehaviour
         MinSec = ChangeTime(MinTime) - 30;
 
         //バー(赤色のTimeSphere)の位置を把握する
-        Slidery = slider.transform.localPosition.y;
+        /*Slidery = slider.transform.localPosition.y;
+        //Slidery = PinchSlider
         //バーはｙ座標が1から-1まで動く。わかりやすくするために1～-1を0～2に変換する
         Slidery = Slidery - 1;
         Slidery = Slidery * (-1);
@@ -189,9 +195,12 @@ public class DBsubscriber : MonoBehaviour
         if (Slidery < 0)
         {
             Slidery = 0;
-        }
+        }*/
 
         //バーの位置が指し示す時刻をnowtimeに格納
+
+        Slidery = pinchslider;
+
         nowtime = MinSec + (MaxSec - MinSec) * (Slidery / 2);
         Slidery = Slidery * (MaxSec - MinSec) / 2f;  //??
 
@@ -238,8 +247,15 @@ public class DBsubscriber : MonoBehaviour
         //}*/
 
     }
+    public void OnSliderUpdated(SliderEventData eventData)
+    {
+        pinchslider = 2*(eventData.NewValue);
 
-    void PlaneChange()
+    }
+
+
+
+        void PlaneChange()
     {
         for (int i = 0; i < cnt; i++)  //i=0は一つ目の物体についての処理 i=1は二つ目の物体についての処理 i=2は三つ目の...
         {

@@ -491,6 +491,9 @@
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\nativePlugins.txt">
       <PackagePath>Data\nativePlugins.txt</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\sharedassets0.resource">
+      <PackagePath>Data\sharedassets0.resource</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\StreamingAssets\Vuforia\tnomura.dat">
       <PackagePath>Data\StreamingAssets\Vuforia\tnomura.dat</PackagePath>
     </AppxPackagedFile>
