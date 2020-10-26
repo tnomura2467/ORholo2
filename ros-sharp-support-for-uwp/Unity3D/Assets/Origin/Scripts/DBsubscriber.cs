@@ -261,7 +261,7 @@ public class DBsubscriber : MonoBehaviour
         {
             //物体の情報をPleneに反映 書き直し必須
             Plane[i].transform.localScale = new Vector3(Width[i] * 0.001f, 0.1f, Height[i] * 0.001f);
-            Plane[i].transform.localPosition = new Vector3((Xmin[i] * 0.01f) - 2.4f + (Width[i] * 0.005f), (Ymin[i] * 0.01f * -1) + 1.35f - (Height[i] * 0.005f), 10f + Depth[i] * 0.00001f);
+            Plane[i].transform.localPosition = new Vector3((Xmin[i] * 0.01f) - 2.46f + (Width[i] * 0.005f), (Ymin[i] * 0.01f * -1) + 1.35f - (Height[i] * 0.005f), 10f + Depth[i] * 0.00001f);
 
             //最後のイベント時刻を知る
             MinTime = TimeB[0]; //Beginning is bringed first objects 
