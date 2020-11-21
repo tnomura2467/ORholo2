@@ -80,11 +80,16 @@ public class DBsubscriber : MonoBehaviour
 
     MoveTimeBar movetime;
     public bool movecomp;
-   // public GameObject Timesphere;
+    // public GameObject Timesphere;
 
     /*TranceRP trp;
     public bool trpbool;
     public GameObject trpObject;*/
+
+    IDdecision iddecision;
+    GameObject WorldEditorID;
+    private int holoid;
+    private string idstr;
 
 
     public bool num_check_topic = false;
@@ -104,8 +109,14 @@ public class DBsubscriber : MonoBehaviour
         nowtime = 0;
         texttime = texttimeobject.GetComponent<TextMesh>();
 
-       // Timesphere = GameObject.Find("TimeSphere");
-       // movetime = Timesphere.GetComponent<MoveTimeBar>();
+        WorldEditorID = GameObject.Find("WorldEditor");
+        iddecision = WorldEditorID.GetComponent<IDdecision>();
+
+        holoid = iddecision.ids;
+        idstr = holoid.ToString("0");
+
+        // Timesphere = GameObject.Find("TimeSphere");
+        //movetime = Timesphere.GetComponent<MoveTimeBar>();
         /*trpObject = GameObject.Find("TimeSphere2");
         trp = trpObject.GetComponent<TranceRP>();*/
         //PinchSliders = GameObject.Find("PinchSlider");
@@ -119,7 +130,7 @@ public class DBsubscriber : MonoBehaviour
         rosSocket = GetComponent<RosConnector>().RosSocket;
 
         //Topicを受け取ったら関数NuｍResが呼び出される
-        rosSocket.Subscribe("/shelfDB", "detect_object/DBinfo", NumRes, UpdateTime);
+        rosSocket.Subscribe("/shelfDB_"+idstr, "detect_object/DBinfo", NumRes, UpdateTime);
     }
 
     void NumRes(Message message)
