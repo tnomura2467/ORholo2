@@ -44,11 +44,12 @@ namespace RosSharp.RosBridgeClient
 
             holoid = iddecision.ids;
 
-            Topic = Topic+holoid.ToString("0")+"/compressed";
+            Topic = Topic + holoid.ToString("0") + "/compressed";
 
             rosSocket = GetComponent<RosConnector>().RosSocket;
             rosSocket.Subscribe(Topic, MessageTypes.RosMessageType(MessageReceiver.MessageType), Receive, timeStep);
         }
+
 
         private void Receive(Message message)
         {

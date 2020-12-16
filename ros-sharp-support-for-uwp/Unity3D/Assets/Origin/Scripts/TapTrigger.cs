@@ -21,14 +21,14 @@ public class TapTrigger : MonoBehaviour
            
         }*/
         tap = true;
-        if (cnt % 2 == 0)
+        /*if (cnt % 2 == 0)
         {
             GetComponent<Renderer>().material.color = Color.blue;
         }
         else if(cnt%2 == 1)
         {
             GetComponent<Renderer>().material.color = Color.green;
-        }
+        }*/
         cnt++;
     }
 }

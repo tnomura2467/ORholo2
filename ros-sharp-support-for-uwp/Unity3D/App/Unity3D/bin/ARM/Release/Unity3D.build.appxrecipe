@@ -476,20 +476,17 @@
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\sharedassets0.assets">
       <PackagePath>Data\sharedassets0.assets</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\level0.resS">
-      <PackagePath>Data\level0.resS</PackagePath>
+    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\managedAssemblies.txt">
+      <PackagePath>Data\managedAssemblies.txt</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\nativePlugins.txt">
+      <PackagePath>Data\nativePlugins.txt</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\resources.assets.resS">
       <PackagePath>Data\resources.assets.resS</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\sharedassets0.assets.resS">
       <PackagePath>Data\sharedassets0.assets.resS</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\managedAssemblies.txt">
-      <PackagePath>Data\managedAssemblies.txt</PackagePath>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\nativePlugins.txt">
-      <PackagePath>Data\nativePlugins.txt</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\tnomura\Downloads\rosvufo2\ros-sharp-support-for-uwp\Unity3D\App\Unity3D\Data\sharedassets0.resource">
       <PackagePath>Data\sharedassets0.resource</PackagePath>

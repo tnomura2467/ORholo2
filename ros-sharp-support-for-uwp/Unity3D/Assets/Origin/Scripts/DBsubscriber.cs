@@ -56,7 +56,7 @@ public class DBsubscriber : MonoBehaviour
     }
     BeginTime bt = new BeginTime { hour = 0, min = 0, sec = 0 };
     EndTime et = new EndTime { hour = 0, min = 0, sec = 0 };
-    NowTime nt = new NowTime { hour = 0, min = 0, sec = 0 };
+    public static NowTime nt = new NowTime { hour = 0, min = 0, sec = 0 };
 
     public GameObject Plane0;
     public GameObject Plane1;
