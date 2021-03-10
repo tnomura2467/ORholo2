@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.UI;
 
+/*スライダーの動き制御*/
+
 public class SliderMotion : MonoBehaviour
 {
     [SerializeField]
@@ -35,10 +37,6 @@ public class SliderMotion : MonoBehaviour
             Destroy(targetBoundingBox);
         }
     }
-
-    // Start is called before the first frame update
     void Start() { }
-
-    // Update is called once per frame
     void Update() { }
 }

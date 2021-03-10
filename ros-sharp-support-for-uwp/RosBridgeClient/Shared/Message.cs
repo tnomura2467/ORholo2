@@ -406,4 +406,34 @@ namespace RosSharp.RosBridgeClient
         }
 
     }
+    public class TransformInfo : Message
+    {
+        public int image_num;
+        public float[] position_x;
+        public float[] position_y;
+        public float[] position_z;
+        public float[] rotation_x;
+        public float[] rotation_y;
+        public float[] rotation_z;
+        public float[] scale_x;
+        public float[] scale_y;
+        public float[] scale_z;
+        public int[] TimeB;
+        public int[] TimeT;
+        public TransformInfo()
+        {
+            position_x = new float[0];
+            position_y = new float[0];
+            position_z = new float[0];
+            rotation_x = new float[0];
+            rotation_y = new float[0];
+            rotation_z = new float[0];
+            scale_x = new float[0];
+            scale_y = new float[0];
+            scale_z = new float[0];
+            TimeB = new int[0];
+            TimeT = new int[0];
+        }
+
+    }
 }

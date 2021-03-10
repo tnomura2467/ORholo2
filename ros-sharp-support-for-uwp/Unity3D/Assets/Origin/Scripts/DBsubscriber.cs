@@ -4,6 +4,7 @@ using UnityEngine;
 using RosSharp.RosBridgeClient;
 using Microsoft.MixedReality.Toolkit.UI;
 
+/*ORderverから情報を受け取り，オブジェクト設置*/
 
 public class DBsubscriber : MonoBehaviour
 {
@@ -35,64 +36,53 @@ public class DBsubscriber : MonoBehaviour
     public int[] TSec;   //MS稼働から物体が持ち去られるまでの時間(秒)
 
     public float nowtime;
-    public struct NowTime
+    public struct NowTime //今の時刻
     {
         public int hour;
         public int min;
         public int sec;
     }
 
-    public struct BeginTime
+    public struct BeginTime //左端の時刻
     {
         public int hour;
         public int min;
         public int sec;
     }
-    public struct EndTime
+    public struct EndTime //右端の時刻
     {
         public int hour;
         public int min;
         public int sec;
     }
+
     BeginTime bt = new BeginTime { hour = 0, min = 0, sec = 0 };
     EndTime et = new EndTime { hour = 0, min = 0, sec = 0 };
     public static NowTime nt = new NowTime { hour = 0, min = 0, sec = 0 };
 
-    public GameObject Plane0;
+    public GameObject Plane0; //各オブジェクトを貼るPlane
     public GameObject Plane1;
     public GameObject Plane2;
     public GameObject Plane3;
     public GameObject Plane4;
     public GameObject Plane5;
-
     public GameObject[] Plane;
-
 
     public GameObject texttimeobject;
     TextMesh texttime;
-
-
-
-    //public GameObject slider;
     public float Slidery;
     public GameObject PinchSliders;
     public float pinchslider;
 
     MoveTimeBar movetime;
     public bool movecomp;
-    // public GameObject Timesphere;
-
-    /*TranceRP trp;
-    public bool trpbool;
-    public GameObject trpObject;*/
 
     IDdecision iddecision;
     GameObject WorldEditorID;
     private int holoid;
     private string idstr;
-
-
     public bool num_check_topic = false;
+
     void Start()
     {
         BSec = new int[20];
@@ -115,13 +105,6 @@ public class DBsubscriber : MonoBehaviour
         holoid = iddecision.ids;
         idstr = holoid.ToString("0");
 
-        // Timesphere = GameObject.Find("TimeSphere");
-        //movetime = Timesphere.GetComponent<MoveTimeBar>();
-        /*trpObject = GameObject.Find("TimeSphere2");
-        trp = trpObject.GetComponent<TranceRP>();*/
-        //PinchSliders = GameObject.Find("PinchSlider");
-
-
         Invoke("Init", 1.0f);
     }
 
@@ -133,7 +116,7 @@ public class DBsubscriber : MonoBehaviour
         rosSocket.Subscribe("/shelfDB_"+idstr, "detect_object/DBinfo", NumRes, UpdateTime);
     }
 
-    void NumRes(Message message)
+    void NumRes(Message message) //受け取った情報を格納
     {
         DBinfo datas = (DBinfo)message;
         FrameB = datas.FrameB;
@@ -177,38 +160,15 @@ public class DBsubscriber : MonoBehaviour
  
     void Update()
     {
-
         //ORサーバからのtopicを受け取ったら
         if (num_check_topic)
         {
             PlaneChange();
         }
-        
-        //MaxTime = 160605;
-        //MinTime = 160439;
-        //MaxTime = 0;
-        //MinTime = 0;
-
         //最初と最後のイベント時刻を秒数に変換。30+-はなくてもよい。見やすくするため
         MaxSec = ChangeTime(MaxTime) + 30;    //30秒+-
         MinSec = ChangeTime(MinTime) - 30;
-
-        //バー(赤色のTimeSphere)の位置を把握する
-        /*Slidery = slider.transform.localPosition.y;
-        //Slidery = PinchSlider
-        //バーはｙ座標が1から-1まで動く。わかりやすくするために1～-1を0～2に変換する
-        Slidery = Slidery - 1;
-        Slidery = Slidery * (-1);
-        if (Slidery > 2)
-        {
-            Slidery = 2;
-        }
-        if (Slidery < 0)
-        {
-            Slidery = 0;
-        }*/
-
-        //バーの位置が指し示す時刻をnowtimeに格納
+        
 
         Slidery = pinchslider;
 
@@ -244,28 +204,12 @@ public class DBsubscriber : MonoBehaviour
             }
         }
 
-        /*if (trp.tapRP == true)
-        //{
-            if (movetime.movebar == true)
-            {
-                for (int i = 0; i < cnt; i++)
-                {
-                    Plane[i].transform.localPosition = new Vector3((Xmin[i] * 0.01f) - 2.4f + (Width[i] * 0.005f), (Ymin[i] * 0.01f * -1) + 1.35f - (Height[i] * 0.005f), 10f + Depth[i] * 0.00001f);
-                    movetime.movebar = false;
-                }
-
-            }
-        //}*/
-
     }
     public void OnSliderUpdated(SliderEventData eventData)
     {
         pinchslider = 2*(eventData.NewValue);
 
     }
-
-
-
         void PlaneChange()
     {
         for (int i = 0; i < cnt; i++)  //i=0は一つ目の物体についての処理 i=1は二つ目の物体についての処理 i=2は三つ目の...
@@ -281,11 +225,7 @@ public class DBsubscriber : MonoBehaviour
             {
                 MaxTime = TimeT[i];
             }
-
-
-
         }
-
         bt.hour = MinTime / 10000;
         bt.min = (MinTime / 100) - (bt.hour * 100);
         bt.sec = MinTime - (bt.hour * 10000) - (bt.min * 100);
@@ -293,9 +233,6 @@ public class DBsubscriber : MonoBehaviour
         et.hour = MaxTime / 10000;
         et.min = (MaxTime / 100) - (et.hour * 100);
         et.sec = MaxTime - (et.hour * 10000) - (et.min * 100);
-
-
-
         num_check_topic = false;
 
     }

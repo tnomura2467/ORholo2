@@ -4,6 +4,8 @@ using UnityEngine;
 using RosSharp.RosBridgeClient;
 using Microsoft.MixedReality.Toolkit.UI;
 
+/*ユーザボタンの作成*/
+
 public class CreateUsersButton : MonoBehaviour
 {
     private RosSocket rosSocket;
@@ -14,12 +16,12 @@ public class CreateUsersButton : MonoBehaviour
     IDdecision iddecision;
     GameObject WorldEditorID;
     private int holoid;
-    public GameObject UsersButton;
-    public GameObject UsersText;
-    public GameObject UserCountButton;
+    public GameObject UsersButton; //ユーザナンバー表示ボタン
+    public GameObject UsersText; //ユーザ表示文字
+    public GameObject UserCountButton; //ユーザ数をカウントするボタン
     private GameObject UT;
     private GameObject UB;
-    public static int userno;
+    public static int userno; //自身のユーザナンバー
     private int oriuserno;
     private int cnt;
     public static int MyNo;
@@ -31,33 +33,25 @@ public class CreateUsersButton : MonoBehaviour
         cnt = 0;
         MyNo = 0;
 
-
-        WorldEditorID = GameObject.Find("WorldEditor");
+        WorldEditorID = GameObject.Find("WorldEditor"); //WorldEditor探索
         iddecision = WorldEditorID.GetComponent<IDdecision>();
         holoid = iddecision.ids;
-
         Invoke("Init", 1.0f);
 
     }
     public void Init()
     {
         rosSocket = GetComponent<RosConnector>().RosSocket;
-
         //Topicを受け取ったら関数NuｍResが呼び出される
         rosSocket.Subscribe("/countNo", "std_msgs/String", NoRes, UpdateTime);
     }
 
-    void NoRes(Message message)
+    void NoRes(Message message) //受け取ったメッセージを格納
     {
-
         StandardString datas = (StandardString)message;
-
         UserNo = datas.data;
-
         no_check_topic = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (no_check_topic)
@@ -67,7 +61,6 @@ public class CreateUsersButton : MonoBehaviour
     }
     void DecideUserNo()
     {
-        
         userno = int.Parse(UserNo);
 
         if (cnt == 0)
@@ -77,14 +70,9 @@ public class CreateUsersButton : MonoBehaviour
 
         if (oriuserno != userno)
         {
-
             oriuserno = userno;
-
-
-
-
             iddecision.ids = userno;
-            if (cnt == 0)
+            if (cnt == 0) //各スクリプト起動
             {
                 this.GetComponent<StrPub>().enabled = true;
                 this.GetComponent<Subscriber2>().enabled = true;
@@ -93,9 +81,7 @@ public class CreateUsersButton : MonoBehaviour
                 this.GetComponent<MyInfoPub>().enabled = true;
                 this.GetComponent<InfoSubPub>().enabled = true;
             }
-
-
-            for (int i = cnt; i < userno; i++)
+            for (int i = cnt; i < userno; i++) //ボタンの表示位置調整
             {
                 //Debug.Log("i:" + i + ",cnt:" + cnt + ",user:" + userno);
 
@@ -106,24 +92,19 @@ public class CreateUsersButton : MonoBehaviour
                 UT.gameObject.name = "User3DText" + (i + 1);
 
 
-                if (userno == (i + 1) && cnt == 0)
+                if (userno == (i + 1) && cnt == 0) //自分の番号にMeを付ける
                 {
                     UT.GetComponent<TextMesh>().text = "User" + (i + 1) + " (Me)";
-                    UT.GetComponent<TextMesh>().color = new Color32(255, 0, 0, 255);
-                   
+                    UT.GetComponent<TextMesh>().color = new Color32(255, 0, 0, 255); //色を赤にする
                 }
                 else
                 {
                     UT.GetComponent<TextMesh>().text = "User " + (i + 1);
                 }
-
-
-
             }
             UserCountButton.SetActive(false);
             cnt = cnt + 1;
         }
-
         no_check_topic = false;
     }
 }

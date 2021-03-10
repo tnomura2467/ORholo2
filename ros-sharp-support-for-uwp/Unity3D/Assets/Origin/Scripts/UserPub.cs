@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*自分のユーザ番号を要求*/
+
 public class UserPub : MonoBehaviour
 {
     private RosSocket rosSocket;
@@ -10,22 +12,16 @@ public class UserPub : MonoBehaviour
     private StandardString message;
     public string counter;
 
-    public GameObject UserCountButton;
+    public GameObject UserCountButton; //ユーザカウントボタン
     TapToFirst tapto;
     private bool TUCtap = false;
-
-    //IDdecision iddecision;
-    //GameObject WorldEditorID;
-
+    
     void Start()
     {
-        //WorldEditorID = GameObject.Find("WorldEditor");
-        //iddecision = WorldEditorID.GetComponent<IDdecision>();
-
         UserCountButton = GameObject.Find("UserCountButton");
         tapto = UserCountButton.GetComponent<TapToFirst>();
-
         rosSocket = GetComponent<RosConnector>().RosSocket;
+        //トピック名はusercount，型はString
         advertise_id = rosSocket.Advertise("/usercount", "std_msgs/String");
         counter = "whatNo";
         message = new StandardString();
@@ -35,15 +31,11 @@ public class UserPub : MonoBehaviour
     {
         TUCtap = tapto.tap;
 
-        if (TUCtap == true)
+        if (TUCtap == true) //ユーザカウントボタンが押されたら要求
         {
             counter = "whatNo";
             message.data = counter;
             rosSocket.Publish(advertise_id, message);
-            //this.GetComponent<UserNoSubscriber>().enabled = true;
-            //iddecision.ids = 1;
-            //this.GetComponent<Subscriber2>().enabled = true;
-            //this.GetComponent<Subscriber3>().enabled = true;
             this.GetComponent<CreateUsersButton>().enabled = true;
             tapto.tap = false;
             TUCtap = false;

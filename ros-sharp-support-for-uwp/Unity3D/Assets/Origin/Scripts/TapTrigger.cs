@@ -2,34 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*タップされた回数のカウント*/
+
 public class TapTrigger : MonoBehaviour
 {
     public bool tap = false;
-    //private Rigidbody rigidBody;
-    private int cnt;
+    private int cnt; //カウント数
     void Start()
     {
-        //rigidBody = GetComponent<Rigidbody>();
         cnt = 0;
     }
 
     public void OnClickFreeFall()
     {
-        /*if(rigidBody != null)
-        {
-            rigidBody.useGravity = true;
-           
-        }*/
         tap = true;
-        /*if (cnt % 2 == 0)
-        {
-            GetComponent<Renderer>().material.color = Color.blue;
-        }
-        else if(cnt%2 == 1)
-        {
-            GetComponent<Renderer>().material.color = Color.green;
-        }*/
-        cnt++;
+        cnt++; //カウント数を増やす
     }
 }
 

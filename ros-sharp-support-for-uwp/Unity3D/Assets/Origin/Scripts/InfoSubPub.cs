@@ -6,6 +6,8 @@ using Microsoft.MixedReality.Toolkit.SceneSystem;
 using UnityEngine.SceneManagement;
 using Microsoft.MixedReality.Toolkit;
 
+/*別ユーザの要求があればオブジェクトの位置を返す*/
+
 public class InfoSubPub : MonoBehaviour
 {
     private RosSocket rosSocket;
@@ -16,25 +18,23 @@ public class InfoSubPub : MonoBehaviour
     protected static int DeviceNo = 0;
     private int Mynumber;
 
-    private DBinfo message; 
+    private DBinfo message;
+    private TransformInfo transI;
 
     DBsubscriber dbsub;
 
+    private float[] px; //オブジェクトの座標，角度，サイズのxyz
+    private float[] py;
+    private float[] pz;
+    private float[] rx;
+    private float[] ry;
+    private float[] rz;
+    private float[] sx;
+    private float[] sy;
+    private float[] sz;
 
-    private int[] FrameB;  //モニタリングシステムが稼働してから物体が持ち込まれるまでのFrame数(使ってない)
-    private int[] FrameT;  //MSが稼働してから物体が持ち去られるまでのFrame数(使ってない)
-    private int[] TimeB;  //物体が持ち込まれた時刻
-    private int[] TimeT;  //物体が持ち去られた時刻(持ち去られていない場合は0が返ってくる)
-    private int[] id;  //持ち込まれた順に付与される番号(使ってない)
-    private int[] Xmin;  //以下その物体の（画像の）座標とサイズ
-    private int[] Ymin;
-    private int[] Width;
-    private int[] Height;
-    private int[] Depth;
-    private int[] Yobi; //トピックの内容(メッセージ)を書き換えるのは手間がかかるので緊急時の為の変数(何も格納されてない)
-    private int[] YobiYobi;
 
-    public GameObject newPlane0;
+    public GameObject newPlane0; //新しく物体の画像が貼られるPlane
     public GameObject newPlane1;
     public GameObject newPlane2;
     public GameObject newPlane3;
@@ -47,6 +47,7 @@ public class InfoSubPub : MonoBehaviour
     {
         please_data = "0";
         message = new DBinfo();
+        transI = new TransformInfo();
         newPlane = new GameObject[6];  //物体の画像が貼られるPlane
         newPlane[0] = newPlane0;
         newPlane[1] = newPlane1;
@@ -55,9 +56,18 @@ public class InfoSubPub : MonoBehaviour
         newPlane[4] = newPlane4;
         newPlane[5] = newPlane5;
 
+    
 
         dbsub = this.GetComponent<DBsubscriber>();
-
+        px = new float[10];
+        py = new float[10];
+        pz = new float[10];
+        rx = new float[10];
+        ry = new float[10];
+        rz = new float[10];
+        sx = new float[10];
+        sy = new float[10];
+        sz = new float[10];
 
         Invoke("Init", 1.0f);
 
@@ -69,7 +79,7 @@ public class InfoSubPub : MonoBehaviour
 
         rosSocket = GetComponent<RosConnector>().RosSocket;
 
-        //Topicを受け取ったら関数NuｍResが呼び出される
+        //Topicを受け取ったら関数YurInfoが呼び出される
         rosSocket.Subscribe("/yourinfo"+Mynumber, "std_msgs/String", YourInfo, UpdateTime);
     }
 
@@ -77,13 +87,9 @@ public class InfoSubPub : MonoBehaviour
     {
 
         StandardString datas = (StandardString)message;
-
         please_data = datas.data;
-
         yourinfo_check_topic = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
         if (yourinfo_check_topic)
@@ -93,51 +99,37 @@ public class InfoSubPub : MonoBehaviour
     }
     void YISubscribe()
     {
-        Xmin = dbsub.Xmin;
-        Ymin = dbsub.Ymin;
-        Depth = dbsub.Depth;
-        Yobi = dbsub.Yobi;
 
-
-
-        for (int i = 0; i < dbsub.cnt; i++) {
-            //Debug.Log(Xmin[i]);
-            //Debug.Log(newPlane[i].gameObject.transform.position.x);
-            Xmin[i] = (int)(newPlane[i].gameObject.transform.localPosition.x *1000);
-            Ymin[i] = (int)(newPlane[i].gameObject.transform.localPosition.y * 1000);
-            Depth[i] = (int)(newPlane[i].gameObject.transform.localPosition.z * 1000);
-            /*Debug.Log("x" + newPlane[i].gameObject.transform.localPosition.x);
-            Debug.Log("y" + newPlane[i].gameObject.transform.localPosition.y);
-            Debug.Log("z" + newPlane[i].gameObject.transform.localPosition.z);
-
-            Debug.Log("Xmin" + Xmin[i]);
-            Debug.Log("Ymin" + Ymin[i]);
-            Debug.Log("Zmin" + Depth[i]);*/
-
+        for (int i = 0; i < dbsub.cnt; i++) //受け取った座標を更新
+        { 
+            px[i] = newPlane[i].gameObject.transform.localPosition.x;
+            py[i] = newPlane[i].gameObject.transform.localPosition.y;
+            pz[i] = newPlane[i].gameObject.transform.localPosition.z;
+            rx[i] = newPlane[i].gameObject.transform.localEulerAngles.x;
+            ry[i] = newPlane[i].gameObject.transform.localEulerAngles.y;
+            rz[i] = newPlane[i].gameObject.transform.localEulerAngles.z;
+            sx[i] = newPlane[i].gameObject.transform.localScale.x;
+            sy[i] = newPlane[i].gameObject.transform.localScale.y;
+            sz[i] = newPlane[i].gameObject.transform.localScale.z;
         }
-        Yobi[0] = DBsubscriber.nt.hour;
-        Yobi[1] = DBsubscriber.nt.min;
-        Yobi[2] = DBsubscriber.nt.sec;
-
-
-        message.FrameB = dbsub.FrameB;
-        message.FrameT = dbsub.FrameT;
-        message.TimeB = dbsub.TimeB;
-        message.TimeT = dbsub.TimeT;
-        message.id = dbsub.id;
-        message.Xmin = Xmin;
-        message.Ymin = Ymin;
-        message.Width = dbsub.Width;
-        message.Height = dbsub.Height;
-        message.Depth = Depth;
-        message.Yobi = Yobi;
-        message.YobiYobi = dbsub.YobiYobi;
-        message.cnt = dbsub.cnt;
+        transI.image_num = dbsub.cnt;
+        transI.position_x = px;
+        transI.position_y = py;
+        transI.position_z = pz;
+        transI.rotation_x = rx;
+        transI.rotation_y = ry;
+        transI.rotation_z = rz;
+        transI.scale_x = sx;
+        transI.scale_y = sy;
+        transI.scale_z = sz;
+        transI.TimeB = dbsub.TimeB;
+        transI.TimeT = dbsub.TimeT;
 
 
         Debug.Log(Mynumber);
-        advertise_id = rosSocket.Advertise("/myinfo" + Mynumber, "detect_object/DBinfo");
-        rosSocket.Publish(advertise_id, message);
+        //advertise_id = rosSocket.Advertise("/myinfo" + Mynumber, "detect_object/DBinfo");
+        advertise_id = rosSocket.Advertise("/myinfo" + Mynumber, "detect_object/TransformInfo");
+        rosSocket.Publish(advertise_id, transI);
 
         yourinfo_check_topic = false;
     }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*ユーザカウントボタンのタップ管理*/
+
 public class TapUserCount : MonoBehaviour
 {
 

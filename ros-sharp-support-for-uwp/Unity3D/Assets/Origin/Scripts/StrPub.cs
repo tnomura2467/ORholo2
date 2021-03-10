@@ -7,10 +7,10 @@ using UnityEngine.UI;
 using System.Runtime.InteropServices;
 //using HoloToolkit.Unity.InputModule;
 
+/*ORserverに棚内物体の情報を要求*/
 
 public class StrPub : MonoBehaviour
 {
-
     private RosSocket rosSocket;
     private string advertise_id;
     private StandardString message;
@@ -35,6 +35,7 @@ public class StrPub : MonoBehaviour
         taptrigger = sphere.GetComponent<TapTrigger>();
 
         rosSocket = GetComponent<RosConnector>().RosSocket;
+        //トピック名はchatter,型はString
         advertise_id = rosSocket.Advertise("/chatter", "std_msgs/String");
         moji = "trues";
         message = new StandardString();
@@ -44,8 +45,7 @@ public class StrPub : MonoBehaviour
     {
         tapk = taptrigger.tap;
 
-
-        if (tapk == true)
+        if (tapk == true)  //自分のidを送信
         {
             if (holoid == 1)
             {

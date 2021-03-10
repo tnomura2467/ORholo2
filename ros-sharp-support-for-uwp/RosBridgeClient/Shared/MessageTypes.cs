@@ -47,7 +47,8 @@ namespace RosSharp.RosBridgeClient
             { "geometry_msgs/Transform", typeof(GeometryTransform)},
             { "geometry_msgs/TransformStamped", typeof(GeometryTransformStamped)},
             { "tf2_msgs/TFMessage", typeof(TF2TFMessage)},
-            { "detect_object/DBinfo", typeof(DBinfo)}
+            { "detect_object/DBinfo", typeof(DBinfo)},
+            { "detect_object/TransformInfo", typeof(TransformInfo)}
         };
         public static string RosMessageType(Type messageType)
         {
