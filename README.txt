@@ -1,9 +1,11 @@
-HoloLens2を用いて物体の仮想操作を行い，扉が閉ざされた棚の中を閲覧するインタフェース
-
+HoloLens2を用いて物体の仮想操作を行い，扉が閉ざされた棚の中を閲覧するインタフェース(制作途中)
 Windows10でUnityを用いてHoloLens用のアプリを作成する
 
 オリジナルのソースコードなどは以下にある
 \ros-sharp-support-for-uwp\Unity3D\Assets\Origin\
+
+動画　https://1drv.ms/v/s!Amh9gmr_5obLynTI1cwrvBsWeIyJ
+※2019年12月に撮影したものなのでgit内のプログラムと違いあり
 
 
 OperableInterfaceのHoloLens2(MRTK2)バージョン
