@@ -15,6 +15,9 @@ public class VisibleHuman : MonoBehaviour
     public static bool isObject1Render = false;
     public static bool isHuman1Render = false;
     public static bool isHuman2Render = false;
+    public static bool isHuman3Render = false;
+    public static bool isHuman4Render = false;
+    public static bool isHuman5Render = false;
 
 
     private void Update()
@@ -41,6 +44,18 @@ public class VisibleHuman : MonoBehaviour
             {
                 isHuman2Render = true;
             }
+            /*if (this.gameObject.tag == "human3")
+            {
+                isHuman3Render = true;
+            }
+            if (this.gameObject.tag == "human4")
+            {
+                isHuman4Render = true;
+            }
+            if (this.gameObject.tag == "human5")
+            {
+                isHuman5Render = true;
+            }*/
 
         }
     }

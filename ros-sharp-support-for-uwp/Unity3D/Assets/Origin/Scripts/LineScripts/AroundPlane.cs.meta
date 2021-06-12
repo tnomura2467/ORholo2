@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 1d39ee9fe0beddd4eb15af23db585426
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - RedPlane: {fileID: 8842624220750714060, guid: 8a0b9032478bda14eabe6bacc8cc218a,
+      type: 3}
+  - NamePlane: {fileID: 1573414915664695512, guid: ed85a5a77d1fe5f4dbbbcbe0bc295769,
+      type: 3}
+  - Icon1Plane: {fileID: 7165259963115626761, guid: 7ea6ac77008f3144c9984642d2c36df6,
+      type: 3}
+  - Icon2Plane: {fileID: 6866220927949321082, guid: f8787929c560e9540bf4282c62cd88b9,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

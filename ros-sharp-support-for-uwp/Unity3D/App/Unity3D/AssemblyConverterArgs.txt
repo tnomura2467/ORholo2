@@ -1,7 +1,7 @@
 -lock=project.lock.json
+Assembly-CSharp.dll
 VuforiaScripts.dll
 Unity.TextMeshPro.dll
-Assembly-CSharp.dll
 Unity.Analytics.DataPrivacy.dll
 Unity.XR.WindowsMR.dll
 UnityEngine.TextCoreModule.dll
