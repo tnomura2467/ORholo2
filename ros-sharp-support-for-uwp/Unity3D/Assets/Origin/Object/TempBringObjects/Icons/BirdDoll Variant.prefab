@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5521821349992629068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3387736524727328812, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b8f477a7e37c54bb5a56ddbab242a5,
+        type: 3}
+    - target: {fileID: 3387736524727328814, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdGreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524728241664, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b8f477a7e37c54bb5a56ddbab242a5,
+        type: 3}
+    - target: {fileID: 3387736524728241666, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdGreen2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.242
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.447
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.0478516
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826540, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736524958826541, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdDoll Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736525243507020, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdGreen5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736525243507026, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b8f477a7e37c54bb5a56ddbab242a5,
+        type: 3}
+    - target: {fileID: 3387736525373660984, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdGreen4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387736525373660990, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b8f477a7e37c54bb5a56ddbab242a5,
+        type: 3}
+    - target: {fileID: 3387736526204258352, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b6b8f477a7e37c54bb5a56ddbab242a5,
+        type: 3}
+    - target: {fileID: 3387736526204258354, guid: 47848ab377c21c94a9cc246ca80a1e97,
+        type: 3}
+      propertyPath: m_Name
+      value: BirdGreen3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 47848ab377c21c94a9cc246ca80a1e97, type: 3}
